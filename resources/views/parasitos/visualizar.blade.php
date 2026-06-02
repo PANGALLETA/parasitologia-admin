@@ -128,26 +128,64 @@
         rel="stylesheet"
         href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
-    <div class="mt-10">
+    <div class="mt-8 max-w-5xl mx-auto">
 
-        <h2 class="text-3xl font-bold mb-4">
+        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
 
-            Distribución Geográfica
+            <div class="px-6 py-5 border-b">
 
-        </h2>
+                <h2 class="text-2xl font-bold text-slate-800">
 
-        <div class="flex gap-6 mb-4">
+                    Distribución Geográfica
 
-            <div>🔴 Alta</div>
-            <div>🟡 Media</div>
-            <div>🟢 Baja</div>
+                </h2>
 
-        </div>
+                <p class="text-slate-500 mt-1">
 
-        <div
-            id="map"
-            class="rounded-2xl border"
-            style="height: 700px;">
+                    Presencia epidemiológica registrada en Colombia.
+
+                </p>
+
+            </div>
+
+            <div class="p-6">
+
+                <div class="flex gap-6 mb-6">
+
+                    <div class="flex items-center gap-2">
+
+                        <span class="w-4 h-4 rounded-full bg-red-500 inline-block"></span>
+
+                        🔴 Alta
+
+                    </div>
+
+                    <div class="flex items-center gap-2">
+
+                        <span class="w-4 h-4 rounded-full bg-yellow-400 inline-block"></span>
+
+                        🟡 Media
+
+                    </div>
+
+                    <div class="flex items-center gap-2">
+
+                        <span class="w-4 h-4 rounded-full bg-green-500 inline-block"></span>
+
+                        🟢 Baja
+
+                    </div>
+
+                </div>
+
+                <div
+                    id="map"
+                    class="rounded-xl border border-slate-200"
+                    style="height: 450px;">
+                </div>
+
+            </div>
+
         </div>
 
     </div>
