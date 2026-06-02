@@ -51,9 +51,22 @@
                     </li>
 
                     <li>
-                        <a href="{{ route('parasitos.index') }}">
+                        <a href="{{ route('parasitos.index') }}"
+                        class="block px-4 py-2 rounded
+                        {{ request()->routeIs('parasitos.*') ? 'bg-slate-700' : 'hover:bg-slate-800' }}">
                             Parásitos
                         </a>
+                    </li>
+                    <li>
+
+                        <a href="{{ route('mapa-epidemiologicos.index') }}"
+                        class="block px-4 py-2 rounded
+                        {{ request()->routeIs('mapa-epidemiologicos.*') ? 'bg-slate-700' : 'hover:bg-slate-800' }}">
+
+                            Mapa Epidemiológico
+
+                        </a>
+
                     </li>
 
                 </ul>

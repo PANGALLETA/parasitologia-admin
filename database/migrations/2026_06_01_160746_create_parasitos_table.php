@@ -12,31 +12,28 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('parasitos', function (Blueprint $table) {
-            $table->id();
+        $table->id();
 
-            // Información taxonómica
-            $table->string('nombre_cientifico');
-            $table->string('nombre_comun')->nullable();
-            $table->string('familia')->nullable();
-            $table->string('orden_taxonomico')->nullable();
+        $table->uuid('uuid')->unique();
 
-            // Información general
-            $table->longText('descripcion_general');
-            $table->longText('ciclo_vida')->nullable();
+        $table->string('nombre_comun');
+        $table->string('nombre_cientifico')->unique();
 
-            // Información veterinaria
-            $table->text('hospedadores')->nullable();
-            $table->text('sintomas')->nullable();
-            $table->text('tratamiento')->nullable();
+        $table->string('familia')->nullable();
+        $table->string('genero')->nullable();
 
-            // Imagen principal
-            $table->string('imagen_principal')->nullable();
+        $table->longText('descripcion_general')->nullable();
+        $table->longText('morfologia')->nullable();
+        $table->longText('hospedadores')->nullable();
+        $table->longText('sintomas')->nullable();
+        $table->longText('tratamiento')->nullable();
 
-            // Estado
-            $table->boolean('activo')->default(true);
+        $table->string('imagen_principal')->nullable();
 
-            $table->timestamps();
-        });
+        $table->boolean('activo')->default(true);
+
+        $table->timestamps();
+    });
     }
 
     /**

@@ -4,7 +4,7 @@ Sistema web desarrollado en Laravel 12 para la gestión de información sobre pa
 
 ## Tecnologías Utilizadas
 
-* Laravel 12
+* Laravel 13
 * PHP 8.2+
 * MySQL 8+
 * Laravel Breeze
