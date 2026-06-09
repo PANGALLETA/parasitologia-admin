@@ -8,6 +8,7 @@ use App\Http\Controllers\MapaEpidemiologicoController;
 use App\Http\Controllers\ParteParasitoController;
 use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AsistenteIaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/mapa-epidemiologicos/parasito/{parasito}',[MapaEpidemiologicoController::class, 'destroyPorParasito'])->name('mapa-epidemiologicos.destroyPorParasito');
     Route::get('/mapa-epidemiologicos/ver/{parasito}',[MapaEpidemiologicoController::class, 'show'])->name('mapa-epidemiologicos.show');
     Route::get('/parasitos/{uuid}/visualizar',[ParasitoController::class, 'visualizar'])->name('parasitos.visualizar');
+    Route::get('/asistente-ia',[AsistenteIaController::class, 'index'])->name('asistente-ia.index');
+    Route::post('/asistente-ia/preguntar',[AsistenteIaController::class, 'preguntar'])->name('asistente-ia.preguntar');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
