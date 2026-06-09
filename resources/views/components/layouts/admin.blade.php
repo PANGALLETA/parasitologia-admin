@@ -68,7 +68,16 @@
                         </a>
 
                     </li>
+                    <li>
+                        <a href="{{ route('parte-parasitos.index') }}"
+                        class="block px-4 py-2 rounded
+                        {{ request()->routeIs('parte-parasitos.*') ? 'bg-slate-700' : 'hover:bg-slate-800' }}">
 
+                            Partes Anatómicas
+
+                        </a>
+                    </li>
+                    
                 </ul>
 
             </nav>

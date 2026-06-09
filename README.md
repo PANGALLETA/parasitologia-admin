@@ -1,6 +1,6 @@
 # Sistema de Parasitología Animal
 
-Sistema web desarrollado en Laravel 12 para la gestión de información sobre parasitología animal.
+Sistema web desarrollado en Laravel 13 para la gestión de información sobre parasitología animal.
 
 ## Tecnologías Utilizadas
 

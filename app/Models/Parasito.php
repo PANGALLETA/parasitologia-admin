@@ -40,4 +40,10 @@ class Parasito extends Model
     {
         return $this->hasMany(MapaEpidemiologico::class);
     }
+
+    public function partes()
+    {
+        return $this->hasMany(ParteParasito::class)->orderBy('orden');
+    }
+
 }

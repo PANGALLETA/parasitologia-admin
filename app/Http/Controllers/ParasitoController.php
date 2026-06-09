@@ -6,6 +6,7 @@ use App\Models\Parasito;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\MapaEpidemiologico;
+use App\Models\ParteParasito;
 
 class ParasitoController extends Controller
 {
@@ -194,11 +195,20 @@ class ParasitoController extends Controller
             $parasito->id
         )->get();
 
+        $partes = ParteParasito::where(
+            'parasito_id',
+            $parasito->id
+        )
+        ->where('activo', true)
+        ->orderBy('orden')
+        ->get();
+
         return view(
             'parasitos.visualizar',
             compact(
                 'parasito',
-                'mapas'
+                'mapas',
+                'partes'
             )
         );
     }

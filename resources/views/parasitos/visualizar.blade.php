@@ -10,9 +10,18 @@
 
             @if($parasito->imagen_principal)
 
-                <img
-                    src="{{ asset('storage/' . $parasito->imagen_principal) }}"
-                    class="w-full h-96 object-cover">
+                <div class="relative h-[500px] overflow-hidden rounded-2xl">
+
+                    <img
+                        src="{{ asset('storage/' . $parasito->imagen_principal) }}"
+                        class="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-40">
+
+                    <img
+                        src="{{ asset('storage/' . $parasito->imagen_principal) }}"
+                        class="relative z-10 w-full h-full object-contain cursor-pointer"
+                        onclick="abrirImagen(this.src)">
+
+                </div>
 
             @endif
 
@@ -156,7 +165,7 @@
 
                         <span class="w-4 h-4 rounded-full bg-red-500 inline-block"></span>
 
-                        🔴 Alta
+                        Alta
 
                     </div>
 
@@ -164,7 +173,7 @@
 
                         <span class="w-4 h-4 rounded-full bg-yellow-400 inline-block"></span>
 
-                        🟡 Media
+                        Media
 
                     </div>
 
@@ -172,7 +181,7 @@
 
                         <span class="w-4 h-4 rounded-full bg-green-500 inline-block"></span>
 
-                        🟢 Baja
+                        Baja
 
                     </div>
 
@@ -187,6 +196,121 @@
             </div>
 
         </div>
+
+        @if($mapas->first()?->observaciones)
+
+        <div class="mt-8">
+
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+
+                <div class="px-8 py-6 border-b">
+
+                    <h2 class="text-2xl font-bold text-slate-800">
+
+                        Observaciones Epidemiológicas
+
+                    </h2>
+
+                    <p class="text-slate-500 mt-1">
+
+                        Información complementaria sobre la distribución geográfica.
+
+                    </p>
+
+                </div>
+
+                <div class="p-8">
+
+                    <div class="leading-relaxed text-slate-700">
+
+                        {{ $mapas->first()->observaciones }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @endif
+
+        @if($partes->count())
+
+        <div class="mt-10 max-w-5xl mx-auto">
+
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+
+                <div class="px-8 py-6 border-b">
+
+                    <h2 class="text-3xl font-bold text-slate-800">
+
+                        Partes Anatómicas
+
+                    </h2>
+
+                    <p class="text-slate-500 mt-2">
+
+                        Identificación de las principales estructuras anatómicas del parásito.
+
+                    </p>
+
+                </div>
+
+                <div class="p-8">
+
+                    <div class="grid md:grid-cols-2 gap-8">
+
+                        @foreach($partes as $parte)
+
+                            <div
+                                class="border rounded-2xl overflow-hidden hover:shadow-lg transition">
+
+                                <img
+                                    src="{{ asset('storage/' . $parte->imagen) }}"
+                                    class="w-full h-64 object-cover cursor-pointer"
+                                    onclick="abrirImagen(this.src)">
+
+                                <div class="p-5">
+
+                                    <div class="flex justify-between items-center">
+
+                                        <h3 class="text-xl font-bold">
+
+                                            {{ $parte->nombre }}
+
+                                        </h3>
+
+                                        <span
+                                            class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm">
+
+                                            #{{ $parte->orden }}
+
+                                        </span>
+
+                                    </div>
+
+                                    <p class="text-slate-600 mt-4 leading-relaxed">
+
+                                        {{ $parte->descripcion }}
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        @endforeach
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @endif
 
     </div>
 
