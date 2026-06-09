@@ -195,7 +195,6 @@ const distribucionesExistentes = @json(
     </div>
 
 </form>
-```
 
 </div>
 

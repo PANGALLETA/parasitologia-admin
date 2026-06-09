@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\MapaEpidemiologico;
 use App\Models\ParteParasito;
+use App\Models\Pregunta;
 
 class ParasitoController extends Controller
 {
@@ -203,12 +204,18 @@ class ParasitoController extends Controller
         ->orderBy('orden')
         ->get();
 
+        $preguntas = Pregunta::with('respuestas')
+            ->where('parasito_id', $parasito->id)
+            ->where('activo', true)
+            ->get();
+
         return view(
             'parasitos.visualizar',
             compact(
                 'parasito',
                 'mapas',
-                'partes'
+                'partes',
+                'preguntas'
             )
         );
     }

@@ -311,8 +311,257 @@
         </div>
 
         @endif
+        
+        @if($preguntas->count())
+
+        <div class="mt-10 max-w-5xl mx-auto">
+
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+
+                <div class="px-8 py-6 border-b">
+
+                    <h2 class="text-3xl font-bold text-slate-800">
+
+                        Quiz de Evaluación
+
+                    </h2>
+
+                    <p class="text-slate-500 mt-2">
+
+                        Pon a prueba tus conocimientos sobre este parásito.
+
+                    </p>
+
+                </div>
+
+                <div class="p-8 text-center">
+
+                    <div class="text-5xl mb-4">
+                        🧠
+                    </div>
+
+                    <p class="text-slate-600 mb-6">
+
+                        Este parásito contiene
+
+                        <strong>{{ $preguntas->count() }}</strong>
+
+                        preguntas disponibles.
+
+                    </p>
+
+                    <button
+                        onclick="abrirQuiz()"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl">
+
+                        Iniciar Quiz
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @endif
+
+        <div
+            id="modalQuiz"
+            class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+
+            <div class="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+
+                <div class="p-6 border-b flex justify-between items-center">
+
+                    <h2 class="text-2xl font-bold">
+
+                        Quiz de Evaluación
+
+                    </h2>
+
+                    <button
+                        onclick="cerrarQuiz()"
+                        class="text-3xl">
+
+                        ×
+
+                    </button>
+
+                </div>
+
+                <div class="p-8">
+
+                    @foreach($preguntas as $index => $pregunta)
+
+                        <div class="mb-8">
+
+                            <h3 class="font-bold text-lg mb-4">
+
+                                {{ $index + 1 }}.
+                                {{ $pregunta->pregunta }}
+
+                            </h3>
+
+                            <div class="space-y-3">
+
+                                @foreach($pregunta->respuestas as $respuesta)
+
+                                    <label
+                                        class="flex items-center gap-3 border rounded-xl p-4 cursor-pointer hover:bg-slate-50">
+
+                                        <input
+                                            type="radio"
+                                            name="pregunta_{{ $pregunta->id }}"
+                                            value="{{ $respuesta->id }}"
+                                            data-correcta="{{ $respuesta->es_correcta ? 1 : 0 }}">
+
+                                        <span>
+
+                                            {{ $respuesta->respuesta }}
+
+                                        </span>
+
+                                    </label>
+
+                                @endforeach
+
+                            </div>
+
+                        </div>
+
+                    @endforeach
+
+                    <div class="mt-8 text-center">
+
+                        <button
+                            type="button"
+                            onclick="calificarQuiz()"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl">
+
+                            Finalizar Quiz
+
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="resultadoQuiz"
+                        class="hidden mt-6 p-6 rounded-xl bg-slate-50 border">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
+
+<script>
+
+function abrirQuiz()
+{
+    document
+        .getElementById('modalQuiz')
+        .classList.remove('hidden');
+}
+
+function cerrarQuiz()
+{
+    document
+        .getElementById('modalQuiz')
+        .classList.add('hidden');
+}
+
+function calificarQuiz()
+{
+    let total = 0;
+    let correctas = 0;
+
+    @foreach($preguntas as $pregunta)
+
+        total++;
+
+        const seleccionada =
+            document.querySelector(
+                'input[name="pregunta_{{ $pregunta->id }}"]:checked'
+            );
+
+        if(
+            seleccionada &&
+            seleccionada.dataset.correcta === '1'
+        )
+        {
+            correctas++;
+        }
+
+    @endforeach
+
+    let porcentaje =
+        Math.round(
+            (correctas / total) * 100
+        );
+
+    const resultado =
+        document.getElementById(
+            'resultadoQuiz'
+        );
+
+    resultado.classList.remove(
+        'hidden'
+    );
+
+    let mensaje = '';
+
+    if(porcentaje >= 80)
+    {
+        mensaje = 'Excelente conocimiento';
+    }
+    else if(porcentaje >= 60)
+    {
+        mensaje = 'Buen resultado';
+    }
+    else
+    {
+        mensaje = 'Debes repasar este tema';
+    }
+
+    resultado.innerHTML = `
+        <div class="text-center">
+
+            <h3 class="text-2xl font-bold mb-2">
+
+                Resultado del Quiz
+
+            </h3>
+
+            <p class="text-lg">
+
+                ${correctas} de ${total}
+                respuestas correctas
+
+            </p>
+
+            <p class="text-5xl font-bold text-indigo-600 mt-4">
+
+                ${porcentaje}%
+
+            </p>
+
+            <p class="mt-4 text-slate-600">
+
+                ${mensaje}
+
+            </p>
+
+        </div>
+    `;
+}
+
+</script>
+
 
 <script>
 

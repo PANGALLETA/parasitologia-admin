@@ -6,6 +6,8 @@ use App\Http\Controllers\ParasitoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MapaEpidemiologicoController;
 use App\Http\Controllers\ParteParasitoController;
+use App\Http\Controllers\PreguntaController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +23,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('mapa-epidemiologicos',MapaEpidemiologicoController::class);
     Route::resource('parte-parasitos', ParteParasitoController::class);
+    Route::resource('preguntas', PreguntaController::class);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/mapa-prueba', function () {return view('mapa_epidemiologicos.mapa');});
     Route::delete('/mapa-epidemiologicos/parasito/{parasito}',[MapaEpidemiologicoController::class, 'destroyPorParasito'])->name('mapa-epidemiologicos.destroyPorParasito');
     Route::get('/mapa-epidemiologicos/ver/{parasito}',[MapaEpidemiologicoController::class, 'show'])->name('mapa-epidemiologicos.show');

@@ -46,4 +46,11 @@ class Parasito extends Model
         return $this->hasMany(ParteParasito::class)->orderBy('orden');
     }
 
+    public function preguntas()
+    {
+        return $this->hasMany(
+            Pregunta::class
+        );
+    }
+
 }

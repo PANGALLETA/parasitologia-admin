@@ -77,7 +77,16 @@
 
                         </a>
                     </li>
-                    
+                    <li>
+                        <a href="{{ route('preguntas.index') }}"
+                        class="block px-4 py-2 rounded
+                        {{ request()->routeIs('preguntas.*') ? 'bg-slate-700' : 'hover:bg-slate-800' }}">
+
+                            Quiz
+
+                        </a>
+                    </li>
+
                 </ul>
 
             </nav>
