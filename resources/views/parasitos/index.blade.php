@@ -19,14 +19,14 @@
             </p>
 
         </div>
-
+        @can('crear parasitos')
         <a href="{{ route('parasitos.create') }}"
            class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
 
             + Nuevo Parásito
 
         </a>
-
+        @endcan
     </div>
 
     @if(session('success'))
@@ -198,14 +198,14 @@
                         <td class="px-6 py-4">
 
                             <div class="flex justify-center gap-2">
-
+                                @can('editar parasitos')
                                 <a href="{{ route('parasitos.edit', $parasito) }}"
                                    class="px-3 py-1 rounded bg-amber-100 text-amber-700">
 
                                     Editar
 
                                 </a>
-
+                                @endcan
                                 <a
                                     href="{{ route('parasitos.visualizar', $parasito->uuid) }}"
                                     target="_blank"
@@ -215,6 +215,7 @@
 
                                 </a>
 
+                                @can('eliminar parasitos')
                                 <form
                                     action="{{ route('parasitos.destroy', $parasito) }}"
                                     method="POST"
@@ -236,6 +237,7 @@
                                     </button>
 
                                 </form>
+                                @endcan
 
                             </div>
 

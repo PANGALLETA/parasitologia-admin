@@ -19,13 +19,14 @@
                 </p>
 
             </div>
-
+            @can('crear mapa epidemiologico')
             <a href="{{ route('mapa-epidemiologicos.create') }}"
                class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
 
                 + Nueva Distribución
 
             </a>
+            @endcan
 
         </div>
 
@@ -129,7 +130,6 @@
                                 </div>
 
                                 <div class="flex gap-2">
-
                                     <a
                                         href="{{ route('mapa-epidemiologicos.show', $primerRegistro->parasito_id) }}"
                                         class="px-3 py-2 rounded-lg bg-blue-100 text-blue-700">
@@ -137,7 +137,7 @@
                                         Ver Mapa
 
                                     </a>
-
+                                    @can('editar mapa epidemiologico')
                                     <a
                                         href="{{ route('mapa-epidemiologicos.edit', $primerRegistro->parasito_id) }}"
                                         class="px-3 py-2 rounded-lg bg-amber-100 text-amber-700">
@@ -145,6 +145,8 @@
                                         Editar
 
                                     </a>
+                                    @endcan
+                                    @can('eliminar mapa epidemiologico')
 
                                     <form
                                         action="{{ route('mapa-epidemiologicos.destroyPorParasito', $primerRegistro->parasito_id) }}"
@@ -163,6 +165,7 @@
                                         </button>
 
                                     </form>
+                                    @endcan
 
                                 </div>
 

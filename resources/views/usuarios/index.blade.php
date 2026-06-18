@@ -51,11 +51,12 @@
                         Administra administradores, profesores y estudiantes.
                     </p>
                 </div>
-
+                @can('crear usuarios')
                 <a href="{{ route('usuarios.create') }}"
                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg shadow-sm transition">
                     + Nuevo Usuario
                 </a>
+                @endcan
 
             </div>
 
@@ -270,12 +271,13 @@
                                 <td class="px-6 py-4">
 
                                     <div class="flex justify-center gap-2">
-
+                                        @can('editar usuarios')
                                         <a href="{{ route('usuarios.edit', $usuario) }}"
                                         class="px-3 py-1.5 text-sm rounded-lg bg-amber-100 text-amber-700 hover:bg-amber-200 transition">
                                             Editar
                                         </a>
-
+                                        @endcan
+                                        @can('eliminar usuarios')
                                         @if($usuario->id !== auth()->id())
 
                                             <form action="{{ route('usuarios.destroy', $usuario) }}"
@@ -310,6 +312,7 @@
                                             </form>
 
                                         @endif
+                                        @endcan
 
                                     </div>
 

@@ -34,7 +34,7 @@
                             </a>
                         </li>
                     </li>
-
+                    @can('ver usuarios')
                     <li>
                         <a href="{{ route('usuarios.index') }}"
                         class="block px-4 py-2 rounded
@@ -42,23 +42,35 @@
                             Usuarios
                         </a>
                     </li>
-
+                    @endcan
+                    @can('ver roles')
                     <li>
-                        <a href="#"
-                           class="block px-4 py-2 rounded hover:bg-slate-800">
+                        <a href="{{ route('roles.index') }}"
+                        class="block px-4 py-2 rounded
+                        {{ request()->routeIs('roles.*') ? 'bg-slate-700' : 'hover:bg-slate-800' }}">
+
                             Roles
+
                         </a>
                     </li>
+                    @endcan
+
+                    @can('ver parasitos')
 
                     <li>
                         <a href="{{ route('parasitos.index') }}"
                         class="block px-4 py-2 rounded
                         {{ request()->routeIs('parasitos.*') ? 'bg-slate-700' : 'hover:bg-slate-800' }}">
+
                             Parásitos
+
                         </a>
                     </li>
-                    <li>
 
+                    @endcan
+                    @can('ver mapas')
+
+                    <li>
                         <a href="{{ route('mapa-epidemiologicos.index') }}"
                         class="block px-4 py-2 rounded
                         {{ request()->routeIs('mapa-epidemiologicos.*') ? 'bg-slate-700' : 'hover:bg-slate-800' }}">
@@ -66,8 +78,10 @@
                             Mapa Epidemiológico
 
                         </a>
-
                     </li>
+
+                    @endcan
+                    @can('ver partes')
                     <li>
                         <a href="{{ route('parte-parasitos.index') }}"
                         class="block px-4 py-2 rounded
@@ -77,6 +91,8 @@
 
                         </a>
                     </li>
+                    @endcan
+                    @can('ver quiz')
                     <li>
                         <a href="{{ route('preguntas.index') }}"
                         class="block px-4 py-2 rounded
@@ -86,6 +102,8 @@
 
                         </a>
                     </li>
+                    @endcan
+                    @can('ver asistente-ia')
                     <li>
                         <a href="{{ route('asistente-ia.index') }}"
                         class="block px-4 py-2 rounded
@@ -95,6 +113,7 @@
 
                         </a>
                     </li>
+                    @endcan
 
                 </ul>
 
