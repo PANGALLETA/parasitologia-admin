@@ -25,7 +25,7 @@
                     </p>
 
                 </div>
-                @can('crear parte parasito')
+                @can('crear partes')
                 <a
                     href="{{ route('parte-parasitos.create') }}"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-semibold">
@@ -207,7 +207,7 @@
                                         Visualizar
 
                                     </a>
-                                    @can('editar parte parasito')
+                                    @can('editar partes')
                                     <a
                                         href="{{ route('parte-parasitos.edit', $parte) }}"
                                         class="bg-amber-100 text-amber-700 px-4 py-2 rounded-lg">
@@ -216,7 +216,7 @@
 
                                     </a>
                                     @endcan
-                                    @can('eliminar parte parasito')
+                                    @can('eliminar partes')
 
                                     <form
                                         id="form-eliminar-{{ $parte->id }}"

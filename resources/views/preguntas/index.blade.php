@@ -25,7 +25,7 @@
                     </p>
 
                 </div>
-                @can('crear preguntas')
+                @can('crear quiz')
                 <a
                     href="{{ route('preguntas.create') }}"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-semibold">
@@ -197,7 +197,7 @@
                                         Visualizar
 
                                     </a>
-                                    @can('editar pregunta')
+                                    @can('editar quiz')
                                     <a
                                         href="{{ route('preguntas.edit', $pregunta) }}"
                                         class="bg-amber-100 text-amber-700 px-4 py-2 rounded-lg hover:bg-amber-200">
@@ -206,7 +206,7 @@
 
                                     </a>
                                     @endcan
-                                    @can('eliminar pregunta')
+                                    @can('eliminar quiz')
 
                                     <form
                                         id="form-eliminar-{{ $pregunta->id }}"

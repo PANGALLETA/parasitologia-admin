@@ -103,7 +103,7 @@
                         </a>
                     </li>
                     @endcan
-                    @can('ver asistente-ia')
+                    @can('ver asistente ia')
                     <li>
                         <a href="{{ route('asistente-ia.index') }}"
                         class="block px-4 py-2 rounded

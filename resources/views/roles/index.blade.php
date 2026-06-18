@@ -144,7 +144,7 @@
                                         Visualizar
 
                                     </a>
-                                    @can('editar rol')
+                                    @can('editar roles')
                                     <a
                                         href="{{ route('roles.edit', $role) }}"
                                         class="bg-amber-100 text-amber-700 px-4 py-2 rounded-lg hover:bg-amber-200">
@@ -153,7 +153,7 @@
 
                                     </a>
                                     @endcan
-                                    @can('eliminar rol')
+                                    @can('eliminar roles')
                                     <form
                                         action="{{ route('roles.destroy', $role) }}"
                                         method="POST"
