@@ -10,9 +10,16 @@ use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AsistenteIaController;
 use App\Http\Controllers\RolController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+
+    return redirect()->route('login');
+
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
