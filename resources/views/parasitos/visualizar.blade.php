@@ -463,6 +463,8 @@
 
 function abrirQuiz()
 {
+    document.getElementById('map').style.visibility = 'hidden';
+
     document
         .getElementById('modalQuiz')
         .classList.remove('hidden');
@@ -470,9 +472,9 @@ function abrirQuiz()
 
 function cerrarQuiz()
 {
-    document
-        .getElementById('modalQuiz')
-        .classList.add('hidden');
+    document.getElementById('modalQuiz').classList.add('hidden');
+
+    document.getElementById('map').style.visibility = 'visible';
 }
 
 function calificarQuiz()
