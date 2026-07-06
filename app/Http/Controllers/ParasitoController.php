@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Parasito;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\RoundBlockSizeMode;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Support\Facades\Storage;
 use App\Models\MapaEpidemiologico;
 use App\Models\ParteParasito;
 use App\Models\Pregunta;
+use App\Services\QrCodeService;
 
 class ParasitoController extends Controller
 {
@@ -218,5 +225,61 @@ class ParasitoController extends Controller
                 'preguntas'
             )
         );
+    }
+
+    public function qr(Parasito $parasito,QrCodeService $qrService) 
+    {
+        return response(
+            $qrService->generate($parasito->uuid),
+            200,
+            [
+                'Content-Type' => 'image/png',
+            ]
+        );
+
+    }
+
+    public function ficha(Parasito $parasito)
+    {
+        $qr = route('parasitos.qr', $parasito);
+
+        return view('parasitos.ficha', compact(
+            'parasito',
+            'qr'
+        ));
+    }
+
+    public function pdf(Parasito $parasito,QrCodeService $qrService) 
+    {
+        $qr = base64_encode(
+
+            $qrService->generate(
+                $parasito->uuid
+            )
+
+        );
+
+        $pdf = Pdf::loadView(
+
+            'parasitos.ficha',
+
+            [
+
+                'parasito' => $parasito,
+
+                'qr' => $qr,
+
+            ]
+
+        );
+
+        $pdf->setPaper('a5', 'portrait');
+
+        return $pdf->download(
+
+            'Ficha-'.$parasito->nombre_cientifico.'.pdf'
+
+        );
+
     }
 }

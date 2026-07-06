@@ -215,6 +215,24 @@
 
                                 </a>
 
+                                <a
+                                    href="{{ route('parasitos.pdf', $parasito) }}"
+                                    target="_blank"
+                                    class="px-3 py-2 rounded-lg bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition">
+
+                                    Ficha Técnica
+
+                                </a>
+
+                                <a
+                                    href="{{ route('parasitos.qr', $parasito) }}"
+                                    download="QR-{{ $parasito->nombre_cientifico }}.png"
+                                    class="px-3 py-2 rounded-lg bg-cyan-100 text-cyan-700 hover:bg-cyan-200 transition">
+
+                                    Descargar QR
+
+                                </a>
+
                                 @can('eliminar parasitos')
                                 <form
                                     action="{{ route('parasitos.destroy', $parasito) }}"

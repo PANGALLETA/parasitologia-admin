@@ -46,6 +46,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ParasitoController::class
     );
 
+    Route::get('/parasitos/{parasito}/qr', [ParasitoController::class, 'qr'])
+        ->name('parasitos.qr');
+
+    Route::get('/parasitos/{parasito}/ficha', [ParasitoController::class, 'ficha'])
+        ->name('parasitos.ficha');
+
+    Route::get('/parasitos/{parasito}/pdf', [ParasitoController::class, 'pdf'])
+        ->name('parasitos.pdf');
+
     Route::get(
         '/parasitos/{uuid}/visualizar',
         [ParasitoController::class, 'visualizar']

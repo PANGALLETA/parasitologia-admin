@@ -482,20 +482,20 @@ function calificarQuiz()
 
     @foreach($preguntas as $pregunta)
 
+    {
         total++;
 
-        const seleccionada =
-            document.querySelector(
-                'input[name="pregunta_{{ $pregunta->id }}"]:checked'
-            );
+        const respuestaSeleccionada = document.querySelector(
+            'input[name="pregunta_{{ $pregunta->id }}"]:checked'
+        );
 
-        if(
-            seleccionada &&
-            seleccionada.dataset.correcta === '1'
-        )
-        {
+        if (
+            respuestaSeleccionada &&
+            respuestaSeleccionada.dataset.correcta === '1'
+        ) {
             correctas++;
         }
+    }
 
     @endforeach
 
