@@ -3,11 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\HomeController;
-use App\Http\Controllers\Api\MapaController;
-use App\Http\Controllers\Api\QuizController;
-use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\ParasitoController;
-use App\Http\Controllers\Api\WebArController;
 
 /*
 |--------------------------------------------------------------------------
