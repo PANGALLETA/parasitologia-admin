@@ -34,7 +34,14 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+	$prefix = trim(
+    		(string) $request->header('X-Forwarded-Prefix', ''),
+    		'/'
+	);
+
+	$url = ($prefix !== '' ? '/' . $prefix : '') . '/profile';
+
+        return redirect($url)->with('status', 'profile-updated');
     }
 
     /**

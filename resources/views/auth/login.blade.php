@@ -66,7 +66,7 @@
 
                 @endif
 
-                <form method="POST" action="{{ route('login') }}">
+		<form method="POST" action="{{ url(trim(request()->header('X-Forwarded-Prefix', ''), '/') . '/login') }}">
 
                     @csrf
 

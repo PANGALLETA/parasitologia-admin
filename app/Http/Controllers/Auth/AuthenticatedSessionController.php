@@ -34,7 +34,14 @@ class AuthenticatedSessionController extends Controller
 
         }
 
-        return redirect()->route('dashboard');
+        $prefix = trim(
+    		(string) request()->header('X-Forwarded-Prefix', ''),
+    		'/'
+	);
+
+	$url = ($prefix !== '' ? '/' . $prefix : '') . '/dashboard';
+
+	return redirect($url);
     }
 
     /**
