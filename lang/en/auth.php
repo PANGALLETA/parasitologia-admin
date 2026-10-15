@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'Correo o contraseña incorrectos.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'El correo electrónico o la contraseña son incorrectos.',
+    'password' => 'La contraseña es incorrecta.',
+    'throttle' => 'Demasiados intentos de inicio de sesión. Inténtalo de nuevo en :seconds segundos.',
 
 ];
