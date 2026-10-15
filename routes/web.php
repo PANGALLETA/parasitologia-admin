@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ParasitoController;
-use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\AsistenteIaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MapaEpidemiologicoController;
+use App\Http\Controllers\ParasitoController;
 use App\Http\Controllers\ParteParasitoController;
 use App\Http\Controllers\PreguntaController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AsistenteIaController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
@@ -44,21 +44,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource(
         'parasitos',
         ParasitoController::class
-    );
+    )->middlewareFor(['index', 'show'], 'can:ver parasitos')
+        ->middlewareFor(['create', 'store'], 'can:crear parasitos')
+        ->middlewareFor(['edit', 'update'], 'can:editar parasitos')
+        ->middlewareFor('destroy', 'can:eliminar parasitos');
 
     Route::get('/parasitos/{parasito}/qr', [ParasitoController::class, 'qr'])
-        ->name('parasitos.qr');
+        ->name('parasitos.qr')->middleware('can:ver parasitos');
 
     Route::get('/parasitos/{parasito}/ficha', [ParasitoController::class, 'ficha'])
-        ->name('parasitos.ficha');
+        ->name('parasitos.ficha')->middleware('can:ver parasitos');
 
     Route::get('/parasitos/{parasito}/pdf', [ParasitoController::class, 'pdf'])
-        ->name('parasitos.pdf');
+        ->name('parasitos.pdf')->middleware('can:ver parasitos');
 
     Route::get(
         '/parasitos/{uuid}/visualizar',
         [ParasitoController::class, 'visualizar']
-    )->name('parasitos.visualizar');
+    )->name('parasitos.visualizar')->middleware('can:ver parasitos');
 
     /*
     |--------------------------------------------------------------------------
@@ -69,7 +72,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource(
         'usuarios',
         UsuarioController::class
-    );
+    )->middlewareFor(['index', 'show'], 'can:ver usuarios')
+        ->middlewareFor(['create', 'store'], 'can:crear usuarios')
+        ->middlewareFor(['edit', 'update'], 'can:editar usuarios')
+        ->middlewareFor('destroy', 'can:eliminar usuarios');
 
     /*
     |--------------------------------------------------------------------------
@@ -80,24 +86,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource(
         'mapa-epidemiologicos',
         MapaEpidemiologicoController::class
-    );
+    )->middlewareFor(['index', 'show'], 'can:ver mapas')
+        ->middlewareFor(['create', 'store'], 'can:crear mapas')
+        ->middlewareFor(['edit', 'update'], 'can:editar mapas')
+        ->middlewareFor('destroy', 'can:eliminar mapas');
 
     Route::delete(
         '/mapa-epidemiologicos/parasito/{parasito}',
         [MapaEpidemiologicoController::class, 'destroyPorParasito']
-    )->name('mapa-epidemiologicos.destroyPorParasito');
+    )->name('mapa-epidemiologicos.destroyPorParasito')->middleware('can:eliminar mapas');
 
     Route::get(
         '/mapa-epidemiologicos/ver/{parasito}',
         [MapaEpidemiologicoController::class, 'show']
-    )->name('mapa-epidemiologicos.show');
+    )->name('mapa-epidemiologicos.show')->middleware('can:ver mapas');
 
     Route::get(
         '/mapa-prueba',
         function () {
             return view('mapa_epidemiologicos.mapa');
         }
-    );
+    )->middleware('can:ver mapas');
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +117,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource(
         'parte-parasitos',
         ParteParasitoController::class
-    );
+    )->middlewareFor(['index', 'show'], 'can:ver partes')
+        ->middlewareFor(['create', 'store'], 'can:crear partes')
+        ->middlewareFor(['edit', 'update'], 'can:editar partes')
+        ->middlewareFor('destroy', 'can:eliminar partes');
 
     /*
     |--------------------------------------------------------------------------
@@ -119,7 +131,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource(
         'preguntas',
         PreguntaController::class
-    );
+    )->middlewareFor(['index', 'show'], 'can:ver quiz')
+        ->middlewareFor(['create', 'store'], 'can:crear quiz')
+        ->middlewareFor(['edit', 'update'], 'can:editar quiz')
+        ->middlewareFor('destroy', 'can:eliminar quiz');
 
     /*
     |--------------------------------------------------------------------------
@@ -130,7 +145,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource(
         'roles',
         RolController::class
-    );
+    )->middlewareFor(['index', 'show'], 'can:ver roles')
+        ->middlewareFor(['create', 'store'], 'can:crear roles')
+        ->middlewareFor(['edit', 'update'], 'can:editar roles')
+        ->middlewareFor('destroy', 'can:eliminar roles');
 
     /*
     |--------------------------------------------------------------------------
@@ -141,12 +159,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get(
         '/asistente-ia',
         [AsistenteIaController::class, 'index']
-    )->name('asistente-ia.index');
+    )->name('asistente-ia.index')->middleware('can:ver asistente ia');
 
     Route::post(
         '/asistente-ia/preguntar',
         [AsistenteIaController::class, 'preguntar']
-    )->name('asistente-ia.preguntar');
+    )->name('asistente-ia.preguntar')->middleware('can:ver asistente ia');
 
     /*
     |--------------------------------------------------------------------------
