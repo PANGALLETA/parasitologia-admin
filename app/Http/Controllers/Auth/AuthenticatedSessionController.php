@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Auth\SessionGuard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -28,6 +30,25 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        /** @var SessionGuard $guard */
+        $guard = Auth::guard('web');
+        $guard->logoutOtherDevices($request->input('password'));
+
+        // Protect this session even before its first authenticated page request.
+        $request->session()->put(
+            'password_hash_web',
+            $guard->hashPasswordForCookie($request->user()->getAuthPassword())
+        );
+
+        // Also revoke database sessions created before session authentication was enabled.
+        if (config('session.driver') === 'database') {
+            DB::connection(config('session.connection'))
+                ->table(config('session.table', 'sessions'))
+                ->where('user_id', $request->user()->getAuthIdentifier())
+                ->where('id', '!=', $request->session()->getId())
+                ->delete();
+        }
+
         if ($request->user()->hasRole('Estudiante')) {
 
             return redirect()->route('parasitos.index');
@@ -35,13 +56,13 @@ class AuthenticatedSessionController extends Controller
         }
 
         $prefix = trim(
-    		(string) request()->header('X-Forwarded-Prefix', ''),
-    		'/'
-	);
+            (string) request()->header('X-Forwarded-Prefix', ''),
+            '/'
+        );
 
-	$url = ($prefix !== '' ? '/' . $prefix : '') . '/dashboard';
+        $url = ($prefix !== '' ? '/'.$prefix : '').'/dashboard';
 
-	return redirect($url);
+        return redirect($url);
     }
 
     /**

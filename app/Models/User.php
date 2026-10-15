@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,19 +13,24 @@ use Spatie\Permission\Traits\HasRoles;
     'name',
     'email',
     'password',
-    'activo'
+    'activo',
 ])]
 #[Hidden([
     'password',
-    'remember_token'
+    'remember_token',
 ])]
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, HasRoles, Notifiable;
+
+    protected $attributes = [
+        'activo' => true,
+    ];
 
     protected function casts(): array
     {
         return [
+            'activo' => 'boolean',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
